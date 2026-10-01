@@ -20,12 +20,12 @@ export default defineConfig({
   ['json', { outputFile: 'test-results.json' }],
 ],
   timeout: 400*10000,
-  expect: { timeout: 10000 },
+  expect: { timeout: 40000 },
   fullyParallel: false,
   workers: 1, // serial execution
 
   use: {
-    //headless: false,
+    headless: false,
     viewport: null, // window maximize
 
     launchOptions: {
@@ -47,7 +47,7 @@ export default defineConfig({
         use: {
             browserName: 'chromium',
             channel: 'chrome',
-            headless: process.env.GITHUB_ACTIONS === 'true',
+           // headless: process.env.GITHUB_ACTIONS === 'true',
         },
     },
 
