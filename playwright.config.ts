@@ -12,17 +12,20 @@ const demo1Dir = defineBddConfig({
 export default defineConfig({
  // testDir: './.features-gen',
  //eConsultDir,
+  // reporter: [
+  //   ['html', { open: 'never' }], // <-- REPORT CONFIG HERE
+  // ],
   reporter: [
-    ['html', { open: 'never' }], // <-- REPORT CONFIG HERE
-  ],
+  ['html', { open: 'never' }],
+  ['json', { outputFile: 'test-results.json' }],
+],
   timeout: 400*10000,
   expect: { timeout: 10000 },
   fullyParallel: false,
   workers: 1, // serial execution
 
   use: {
-    headless: false,
-
+    //headless: false,
     viewport: null, // window maximize
 
     launchOptions: {
@@ -43,7 +46,8 @@ export default defineConfig({
         testDir: demo1Dir,
         use: {
             browserName: 'chromium',
-            channel: 'chrome'
+            channel: 'chrome',
+            headless: process.env.GITHUB_ACTIONS === 'true',
         },
     },
 

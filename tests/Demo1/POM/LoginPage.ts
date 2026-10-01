@@ -25,7 +25,7 @@ export class LoginPage {
             page.getByRole('button', { name: 'Login' });
 
         this.errorMessage =
-            page.getByText('Invalid username or password');
+            page.getByText('Your username is invalid!');
 
         this.dashboard =
             page.getByText('Secure Area').nth(1);
