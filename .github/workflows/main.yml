@@ -6,6 +6,14 @@ on:
 
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    schedule:
+    - cron: '0 9 * * *'
+      timezone: "America/Toronto"
+
+    - cron: '42 16 * * *'
+      timezone: "America/Toronto"
+
 
 jobs:
   test:
@@ -27,13 +35,18 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install chromium
 
       - name: Generate BDD tests
         run: npx bddgen
 
+
       - name: Run Playwright tests
         run: npx playwright test
+
+      - name: Generate email report
+        if: always()
+        run: node scripts/email-report.cjs
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}
@@ -42,3 +55,38 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+      - name: Zip Playwright report
+        if: always()
+        run: zip -r playwright-report.zip playwright-report/
+
+      - name: Send Playwright report by email
+        if: always()
+        uses: dawidd6/action-send-mail@v22
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+
+          subject: Playwright Test Report - ${{ job.status }}
+
+          body: |
+            Playwright automation execution completed.
+
+            Test Status: ${{ job.status }}
+            Branch: ${{ github.ref_name }}
+            Repository: ${{ github.repository }}
+
+            The HTML Playwright summary is included in this email.
+            The complete interactive report is attached as a ZIP file.
+
+          html_body: file://email-report.html
+
+          to: ${{ secrets.EMAIL_USERNAME }}
+
+          from: Playwright Automation <${{ secrets.EMAIL_USERNAME }}>
+
+          attachments: playwright-report.zip
