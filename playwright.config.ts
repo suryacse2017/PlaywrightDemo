@@ -21,8 +21,7 @@ export default defineConfig({
   workers: 1, // serial execution
 
   use: {
-    headless: false,
-
+    //headless: false,
     viewport: null, // window maximize
 
     launchOptions: {
@@ -43,7 +42,8 @@ export default defineConfig({
         testDir: demo1Dir,
         use: {
             browserName: 'chromium',
-            channel: 'chrome'
+            channel: 'chrome',
+            headless: process.env.GITHUB_ACTIONS === 'true',
         },
     },
 
