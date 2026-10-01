@@ -42,3 +42,29 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+      - name: Zip Playwright report
+        if: always()
+        run: zip -r playwright-report.zip playwright-report/
+
+      - name: Send Playwright report by email
+        if: always()
+        uses: dawidd6/action-send-mail@v22
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Playwright Test Report - ${{ job.status }}
+          body: |
+            Playwright automation execution completed.
+
+            Test Status: ${{ job.status }}
+            Branch: ${{ github.ref_name }}
+            Repository: ${{ github.repository }}
+
+            The Playwright HTML report is attached.
+          to: ${{ secrets.EMAIL_USERNAME }}
+          from: Playwright Automation <${{ secrets.EMAIL_USERNAME }}>
+          attachments: playwright-report.zip
