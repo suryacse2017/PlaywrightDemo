@@ -1,0 +1,118 @@
+import { test, expect } from '@playwright/test';
+import { setReport, loadEnv } from '../../../helper/functions';
+loadEnv('video_staging');
+test.setTimeout(130000); 
+const tooltipPartipants = "Your event can contain a combination of OTNhub room-based or personal (PCVC) systems, guests, and non-OTN systems.\n" +
+"Guest via Email: Send an OTNinvite email to a patient or guest to attend from their own device.\n" +
+"OTN System: Connect with an OTNhub personal (PCVC) or room-based system.\n" +
+"Non-OTN System: Connect with a standards-based system by sending them a dialing alias via email.";
+const tooltipCreate = "Schedule or connect any combination of Guest (via OTNinvite), OTN member, Room-based system, or non-OTN system.";
+const tooltipBook = "Request a virtual care appointment at a PAN site for your patient. Request nursing support or use of peripheral devices.";
+const locGuestNo=".participants-count";
+const locatorinvDisclaimer=".invite-disclaimer";
+const invDisclaimer="OTNinvite is applicable in select situations. For more info click here."
+const locatorelDisclaimer=".eligibility-disclaimer";
+const elDisclaimer="Please take a moment to consider Patient Eligibility.";
+const locatorInLineText=".white.inline-text";
+const inLineTextClinical="titled.*Clinical Event\\n*to discuss.*1.*who is present";
+const inLineTextMeeting="titled Meeting";
+const inLineTextLearning="titled Learning event"
+test('Check Create Event modal', async ({page}) => {
+  setReport("eVisitReports","CheckCreateModal")
+  await page.goto('/');
+  await page.getByText('OTN Credentials').click();
+  await page.getByPlaceholder('OTN Credentials').fill(process.env.CREDENTIAL!);
+  await page.getByPlaceholder('Password').click();
+  await page.getByPlaceholder('Password').fill(process.env.PASSWORD!);
+  await page.getByRole('button', { name: 'Sign In' }).click();
+  //Navigate to videoconference
+  await page.getByRole('link', { name: 'Videoconference' }).click();
+  //Check Book patient site tooltip
+  await page.getByText('Book patient site').hover();
+  let tooltipName = await page.locator('a').filter({ hasText: 'Book patient site' }).getAttribute('popover');
+  console.log(tooltipName);
+  tooltipName===tooltipBook;
+  // get away from tooltip
+  await page.getByText('Refresh Participants StatusRefresh').click();
+  //
+  //Check Create event tooltip
+  await page.getByText('Create event').hover();
+  tooltipName = await page.getByText('Create event').getAttribute('popover');
+  console.log(tooltipName);
+  tooltipName===tooltipCreate;
+  //
+  //Open Create Event modal
+  await page.getByText('Create event').click();
+  await expect(page.getByRole('heading',{name:'Connect'})).toHaveText('Connect');
+  //check tooltip
+  tooltipName = await page.locator('.inline-tooltip').getAttribute("title")
+  await page.locator('.inline-tooltip').hover();
+  console.log(tooltipName);
+  tooltipName===tooltipPartipants;
+  //Check content
+  //Check guest no
+  let guestCount='0';
+  let textGuestNo = "you have added "+guestCount+" / 60 systems";
+  await expect(page.locator(locGuestNo)).toHaveText(textGuestNo);
+  //check defaults
+  await expect(page.locator(locatorinvDisclaimer)).toHaveText(invDisclaimer);
+  await expect(page.locator(locatorelDisclaimer)).toHaveText(elDisclaimer);
+  await expect(page.getByRole('button', { name: 'Call Now' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Schedule' })).toBeDisabled();
+  await expect(page.getByText('Opt out of PCVC time conflicts')).toHaveText('Opt out of PCVC time conflicts');
+  await expect(page.getByLabel('Opt out of PCVC time conflicts')).not.toBeChecked();
+  await expect(page.getByLabel('Host PIN is used if host joins via email link. Do not share with guests')).not.toBeVisible();
+ //check event type options
+  await expect(page.getByText('Event Type:')).toHaveText('Event Type:');
+  await expect(page.getByRole('combobox', { name: 'Event Type:' })).toBeEnabled();
+  //check specifics for learning event
+   await page.getByRole('combobox', { name: 'Event Type:' }).selectOption('string:Learning event');
+  await expect(page.locator(locatorInLineText)).toContainText(inLineTextLearning);
+  //check specifics for meeting event
+  await page.getByRole('combobox', { name: 'Event Type:' }).selectOption('string:Meeting');
+  await expect(page.locator(locatorInLineText)).toContainText(inLineTextMeeting);
+  //check specifics for clinical event
+  await page.getByRole('combobox', { name: 'Event Type:' }).selectOption('string:Clinical event');
+  //await expect(page.locator(locatorInLineText)).toContainText(inLineTextClinical);
+ //check participating systems options  
+  await expect(page.getByText('Participating System(s)')).toHaveText('Participating System(s)');    
+  await expect(page.locator('form[name="participantForm"]').getByRole('combobox')).toBeEnabled();
+  await expect(page.getByLabel('Host PIN is used if host joins via email link. Do not share with guests')).not.toBeVisible();
+  //specifics for OTN systems
+  await page.locator('form[name="participantForm"]').getByRole('combobox').selectOption('string:otn_system');
+  await expect(page.getByPlaceholder('Search for people or room systems')).toBeEditable();
+  await expect(page.getByLabel('Host PIN is used if host joins via email link. Do not share with guests')).not.toBeVisible();
+  //specifics for off net system
+  await page.locator('form[name="participantForm"]').getByRole('combobox').selectOption('string:offnet_system');
+  await expect(page.getByPlaceholder('Participant name')).toBeEditable();
+  await expect(page.getByPlaceholder('Contact email')).toBeEditable();
+  await expect(page.getByLabel('Host PIN is used if host joins via email link. Do not share with guests')).not.toBeVisible();
+  //specifics for OTNinvite
+  await page.locator('form[name="participantForm"]').getByRole('combobox').selectOption('string:guest');
+  await expect(page.getByPlaceholder('Guest name')).toBeEditable();
+  await expect(page.getByPlaceholder('Guest email')).toBeEditable();
+  await expect(page.getByLabel('Host PIN is used if host joins via email link. Do not share with guests')).not.toBeVisible();
+  await expect(page.getByLabel('Consent to include personal health information in an OTNinvite email')).not.toBeChecked(); //PHI consent
+  await page.getByLabel('Consent to include personal health information in an OTNinvite email').check(); //check PHI consent
+  await page.getByRole('button', { name: 'Confirm' }).click();
+ 
+//check links
+const page1Promise = page.waitForEvent('popup');
+  await page.getByRole('link', { name: 'here' }).click(); 
+  const page1 = await page1Promise;
+  await expect(page1.locator('#siteTitle')).toBeVisible();
+  await page1.close();
+const page2Promise = page.waitForEvent('popup');
+  await page.getByRole('link', { name: 'Patient Eligibility' }).click();
+  const page2 = await page2Promise;
+  //check only the page opens and then can be closed.  await page1.close();
+  await page2.close();
+
+//close modal on main page
+  await page.getByText('x', { exact: true }).click();
+  //logout
+  await page.getByRole('listitem', { name: 'User Panel' }).getByRole('link').click();
+  await page.getByRole('listitem').filter({ hasText: 'Sign Out' }).click();
+  await page.close();
+  });
+

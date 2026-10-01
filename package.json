@@ -1,0 +1,29 @@
+{
+  "name": "project-dependency",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:default": "npx playwright test --project=api",
+    "test:chrome": "npx playwright test --project=chrome"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.2.1",
+    "@playwright/test": "^1.42.1",
+    "@types/aws4": "^1.11.6",
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^20.19.39"
+  },
+  "dependencies": {
+    "aws4": "^1.13.2",
+    "axios": "^1.9.0",
+    "custom-env": "^2.0.2",
+    "dotenv": "^16.4.7",
+    "fs-extra": "^11.1.1",
+    "node-fetch": "^3.3.2",
+    "playwright-bdd": "^8.5.0"
+  }
+}

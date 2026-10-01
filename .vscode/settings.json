@@ -1,0 +1,27 @@
+// {
+//     "cucumber.features": [
+//         "tests/**/*.feature",
+//          "features/**/*.feature"
+
+//     ],
+//     "cucumber.glue": [
+//         "tests/google/testCase/steps/*.ts",
+//         "tests/ECONSULT -AUTOMATION/testCases/steps/*.ts",
+//         "stepDefinitions/**/*.ts"
+//     ],
+//     "files.associations": {
+//         "*.feature": "cucumber"
+//     }
+// }
+
+{
+    "cucumber.features": [
+        "tests/**/*.feature"
+    ],
+    "cucumber.glue": [
+        "tests/**/*.ts"
+    ],
+    "files.associations": {
+        "*.feature": "cucumber"
+    }
+}
