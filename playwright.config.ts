@@ -48,6 +48,7 @@ export default defineConfig({
             browserName: 'chromium',
             channel: 'chrome',
             headless: process.env.GITHUB_ACTIONS === 'true',
+            
         },
     },
 
