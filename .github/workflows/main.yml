@@ -34,7 +34,7 @@ jobs:
         run: npx bddgen
 
 
-            - name: Run Playwright tests
+      - name: Run Playwright tests
         run: npx playwright test
 
       - name: Generate email report
