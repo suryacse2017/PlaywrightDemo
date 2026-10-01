@@ -12,9 +12,13 @@ const demo1Dir = defineBddConfig({
 export default defineConfig({
  // testDir: './.features-gen',
  //eConsultDir,
+  // reporter: [
+  //   ['html', { open: 'never' }], // <-- REPORT CONFIG HERE
+  // ],
   reporter: [
-    ['html', { open: 'never' }], // <-- REPORT CONFIG HERE
-  ],
+  ['html', { open: 'never' }],
+  ['json', { outputFile: 'test-results.json' }],
+],
   timeout: 400*10000,
   expect: { timeout: 10000 },
   fullyParallel: false,
