@@ -16,12 +16,12 @@ Feature: Login functionality
     Then I should see the Dashboard
 
 
-  # Scenario:TC-2 Login with invalid credentials
+  Scenario:TC-2 Login with invalid credentials
 
-  #   Given I enter an invalid username
+    Given I enter an invalid username
 
-  #   When I enter an invalid password
+    When I enter an invalid password
 
-  #   And I click the Login button
+    And I click the Login button
 
-  #   Then I should see an invalid credentials message
+    Then I should see an invalid credentials message

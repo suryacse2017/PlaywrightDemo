@@ -14,6 +14,13 @@ test.describe('Login functionality', () => {
     await Then('I should see the Dashboard', null, { loginPage }); 
   });
 
+  test('TC-2 Login with invalid credentials', async ({ Given, When, Then, And, loginPage }) => { 
+    await Given('I enter an invalid username', null, { loginPage }); 
+    await When('I enter an invalid password', null, { loginPage }); 
+    await And('I click the Login button', null, { loginPage }); 
+    await Then('I should see an invalid credentials message', null, { loginPage }); 
+  });
+
 });
 
 // == technical section ==
@@ -26,4 +33,5 @@ test.use({
 
 const bddFileData = [ // bdd-data-start
   {"pwTestLine":10,"pickleLine":8,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":4,"keywordType":"Context","textWithKeyword":"Given I navigate to the login page","isBg":true,"stepMatchArguments":[]},{"pwStepLine":11,"gherkinStepLine":10,"keywordType":"Context","textWithKeyword":"Given I enter a valid username","stepMatchArguments":[]},{"pwStepLine":12,"gherkinStepLine":12,"keywordType":"Action","textWithKeyword":"When I enter a valid password","stepMatchArguments":[]},{"pwStepLine":13,"gherkinStepLine":14,"keywordType":"Action","textWithKeyword":"And I click the Login button","stepMatchArguments":[]},{"pwStepLine":14,"gherkinStepLine":16,"keywordType":"Outcome","textWithKeyword":"Then I should see the Dashboard","stepMatchArguments":[]}]},
+  {"pwTestLine":17,"pickleLine":19,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":4,"keywordType":"Context","textWithKeyword":"Given I navigate to the login page","isBg":true,"stepMatchArguments":[]},{"pwStepLine":18,"gherkinStepLine":21,"keywordType":"Context","textWithKeyword":"Given I enter an invalid username","stepMatchArguments":[]},{"pwStepLine":19,"gherkinStepLine":23,"keywordType":"Action","textWithKeyword":"When I enter an invalid password","stepMatchArguments":[]},{"pwStepLine":20,"gherkinStepLine":25,"keywordType":"Action","textWithKeyword":"And I click the Login button","stepMatchArguments":[]},{"pwStepLine":21,"gherkinStepLine":27,"keywordType":"Outcome","textWithKeyword":"Then I should see an invalid credentials message","stepMatchArguments":[]}]},
 ]; // bdd-data-end
