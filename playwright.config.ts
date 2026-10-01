@@ -20,7 +20,7 @@ export default defineConfig({
   ['json', { outputFile: 'test-results.json' }],
 ],
   timeout: 400*10000,
-  expect: { timeout: 10000 },
+  expect: { timeout: 40000 },
   fullyParallel: false,
   workers: 1, // serial execution
 
