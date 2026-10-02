@@ -1,10 +1,10 @@
 export const users = {
 
-    loginPageURL:'https://the-internet.herokuapp.com/login',
+    loginPageURL:'https://practicetestautomation.com/practice-test-login/',
 
     validUser: {
-        username: 'tomsmith',
-        password: 'SuperSecretPassword!'
+        username: 'student',
+        password: 'Password123'
     },
 
     invalidUser: {

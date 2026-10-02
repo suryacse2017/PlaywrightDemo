@@ -1,0 +1,194 @@
+{
+  "config": {
+    "configFile": "C:\\SPECIAL2\\OH\\PlaywrightProject\\PlaywrightDemo\\playwright.config.ts",
+    "rootDir": "C:/SPECIAL2/OH/PlaywrightProject/PlaywrightDemo",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/SPECIAL2/OH/PlaywrightProject/PlaywrightDemo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "Demo1-Chrome",
+        "name": "Demo1-Chrome",
+        "testDir": "C:/SPECIAL2/OH/PlaywrightProject/PlaywrightDemo/.features-gen",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "3way",
+    "version": "1.59.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": ".features-gen\\tests\\Demo1\\features\\login.feature.spec.js",
+      "file": ".features-gen/tests/Demo1/features/login.feature.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Login functionality",
+          "file": ".features-gen/tests/Demo1/features/login.feature.spec.js",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-1 Successful login with valid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Demo1-Chrome",
+                  "projectName": "Demo1-Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1313,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Given I enter a valid username",
+                          "duration": 43
+                        },
+                        {
+                          "title": "When I enter a valid password",
+                          "duration": 18
+                        },
+                        {
+                          "title": "And I click the Login button",
+                          "duration": 428
+                        },
+                        {
+                          "title": "Then I should see the Dashboard",
+                          "duration": 27
+                        }
+                      ],
+                      "startTime": "2026-10-02T00:55:19.422Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5be17d6ceb63cf5c79de-29643e201a5ab364c516",
+              "file": ".features-gen/tests/Demo1/features/login.feature.spec.js",
+              "line": 10,
+              "column": 7
+            },
+            {
+              "title": "TC-2 Login with invalid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Demo1-Chrome",
+                  "projectName": "Demo1-Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 885,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Given I enter an invalid username",
+                          "duration": 29
+                        },
+                        {
+                          "title": "When I enter an invalid password",
+                          "duration": 6
+                        },
+                        {
+                          "title": "And I click the Login button",
+                          "duration": 43
+                        },
+                        {
+                          "title": "Then I should see an invalid credentials message",
+                          "duration": 4
+                        }
+                      ],
+                      "startTime": "2026-10-02T00:55:21.115Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5be17d6ceb63cf5c79de-d7e98c85aa50001f2017",
+              "file": ".features-gen/tests/Demo1/features/login.feature.spec.js",
+              "line": 17,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-02T00:55:17.358Z",
+    "duration": 4913.860000000044,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

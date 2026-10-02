@@ -22,13 +22,13 @@ export class LoginPage {
 
 
         this.loginButton =
-            page.getByRole('button', { name: 'Login' });
+            page.getByRole('button', { name: 'Submit' });
 
         this.errorMessage =
-            page.getByText('Your username is invalid!');
+            page.getByText('Your username is invalid!').nth(0);
 
         this.dashboard =
-            page.getByText('Secure Area').nth(1);
+            page.getByText('You successfully logged in!');
     }
 
     async navigateToLoginPage(url: string): Promise<void> {
@@ -37,7 +37,6 @@ export class LoginPage {
        // await this.page.pause();
 
     }
-
     async enterUsername(username: string): Promise<void> {
 
         await this.usernameInput.fill(username);
