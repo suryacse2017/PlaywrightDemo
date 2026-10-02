@@ -19,8 +19,8 @@ export default defineConfig({
   ['html', { open: 'never' }],
   ['json', { outputFile: 'test-results.json' }],
 ],
-  timeout: 400*10000,
-  expect: { timeout: 40000 },
+  timeout: 120000,
+  expect: { timeout: 10000 },
   fullyParallel: false,
   workers: 1, // serial execution
 
@@ -35,7 +35,7 @@ export default defineConfig({
     trace: 'on-first-retry',
    // video: 'retain-on-failure',
     ignoreHTTPSErrors: true,
-    actionTimeout: 5 * 1000,
+    actionTimeout: 5000,
 },
   
 
@@ -48,7 +48,7 @@ export default defineConfig({
             browserName: 'chromium',
             channel: 'chrome',
             headless: process.env.GITHUB_ACTIONS === 'true',
-            
+           
         },
     },
 
