@@ -11,7 +11,7 @@ on:
     - cron: '0 9 * * *'
       timezone: "America/Toronto"
 
-    - cron: '15 21 * * *'
+    - cron: '25 21 * * *'
       timezone: "America/Toronto"
 
 
