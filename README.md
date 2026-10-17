@@ -46,7 +46,7 @@ To run both Demo1 and Demo1Copilot scenarios, use:
 npm run test:both
 ```
 
-Both suites use `playwright-bdd` with the Playwright Test runner. Generated tests are kept in separate subfolders under `.features-gen` and run in headed Chrome. To generate both suites without running them, use `npm run bddgen:both`.
+Both suites use `playwright-bdd` with the Playwright Test runner. Generated tests are kept in separate subfolders under `.features-gen`; they run headed locally and headless in GitHub Actions. To generate both suites without running them, use `npm run bddgen:both`.
 
 To discover and run individual scenarios in VS Code's Testing view, install the recommended **Playwright Test for VS Code** extension. Run `npm run bddgen:both` after changing either suite's feature or step definitions, then refresh test discovery.
 

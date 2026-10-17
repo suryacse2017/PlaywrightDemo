@@ -6,11 +6,11 @@ on:
 
   pull_request:
     branches: [main]
+
   workflow_dispatch:
-    schedule:
+  schedule:
     - cron: '0 9 * * *'
       timezone: "America/Toronto"
-
     - cron: '25 21 * * *'
       timezone: "America/Toronto"
 
@@ -35,14 +35,13 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Generate BDD tests
         run: npx bddgen
 
-
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test --project=Demo1-Chrome --project=Demo1Copilot-Chrome
 
       - name: Generate email report
         if: always()
