@@ -102,10 +102,10 @@
                   "projectName": "Demo1Copilot-Chrome",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 936,
+                      "duration": 1002,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
@@ -113,22 +113,22 @@
                       "steps": [
                         {
                           "title": "Given I am on the practice test login page",
-                          "duration": 570
+                          "duration": 634
                         },
                         {
                           "title": "When I log in with username \"student\" and password \"WrongPassword123\"",
-                          "duration": 77
+                          "duration": 72
                         },
                         {
                           "title": "Then I should see the error message \"Your password is invalid!\"",
-                          "duration": 15
+                          "duration": 10
                         },
                         {
                           "title": "And I should not be logged in",
-                          "duration": 7
+                          "duration": 6
                         }
                       ],
-                      "startTime": "2026-10-17T01:38:55.788Z",
+                      "startTime": "2026-10-17T01:54:58.521Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -148,8 +148,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T01:38:53.610Z",
-    "duration": 3535.784000000014,
+    "startTime": "2026-10-17T01:54:56.348Z",
+    "duration": 3626.0570000000007,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,

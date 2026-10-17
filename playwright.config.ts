@@ -55,7 +55,8 @@ export default defineConfig({
       testDir: demo1Dir,
       use: {
         browserName: 'chromium',
-        headless: process.env.CI === 'true',
+        channel: 'chrome',
+        headless: false,
       },
     },
     {
@@ -63,7 +64,8 @@ export default defineConfig({
       testDir: demo1CopilotDir,
       use: {
         browserName: 'chromium',
-        headless: process.env.CI === 'true',
+        channel: 'chrome',
+        headless: false,
       },
     },
   ],
