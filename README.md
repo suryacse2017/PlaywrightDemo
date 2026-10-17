@@ -32,6 +32,24 @@ To name report files, import and use the `setReport` function as the **first lin
 
 Name any file {filename}.tests.ts to use the login script, name other files {filename}.spec.ts to run without the login script
 
+## Playwright BDD
+
+Run the Demo1Copilot scenarios with:
+
+```
+npm run test:demo1copilot
+```
+
+To run both Demo1 and Demo1Copilot scenarios, use:
+
+```
+npm run test:both
+```
+
+Both suites use `playwright-bdd` with the Playwright Test runner. Generated tests are kept in separate subfolders under `.features-gen` and run in headed Chrome. To generate both suites without running them, use `npm run bddgen:both`.
+
+To discover and run individual scenarios in VS Code's Testing view, install the recommended **Playwright Test for VS Code** extension. Run `npm run bddgen:both` after changing either suite's feature or step definitions, then refresh test discovery.
+
 # Dependencies
 
 Make sure you install all dependencies.

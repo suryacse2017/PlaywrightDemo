@@ -2,15 +2,25 @@ import { defineConfig } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 
 const demo1Dir = defineBddConfig({
-  paths: ['tests/Demo1/features/login.feature'],
+  paths: ['tests/Demo1/features/**/*.feature'],
   steps: [
     'tests/Demo1/stepDefenitions/*.ts',
-    'tests/Demo1/fixtures/*.ts'
+    'tests/Demo1/fixtures/*.ts',
   ],
+  outputDir: '.features-gen/demo1',
+});
+
+const demo1CopilotDir = defineBddConfig({
+  paths: ['tests/Demo1Copilot/features/**/*.feature'],
+  steps: [
+    'tests/Demo1Copilot/stepDefinitions/*.ts',
+    'tests/Demo1Copilot/fixtures/*.ts',
+  ],
+  outputDir: '.features-gen/demo1copilot',
 });
 
 export default defineConfig({
- // testDir: './.features-gen',
+  testDir: demo1Dir,
  //eConsultDir,
   // reporter: [
   //   ['html', { open: 'never' }], // <-- REPORT CONFIG HERE
@@ -40,17 +50,23 @@ export default defineConfig({
   
 
   projects: [
-    
-   {
-        name: 'Demo1-Chrome',
-        testDir: demo1Dir,
-        use: {
-            browserName: 'chromium',
-            channel: 'chrome',
-            headless: process.env.GITHUB_ACTIONS === 'true',
-           
-        },
+    {
+      name: 'Demo1-Chrome',
+      testDir: demo1Dir,
+      use: {
+        browserName: 'chromium',
+        channel: 'chrome',
+        headless: false,
+      },
     },
-
+    {
+      name: 'Demo1Copilot-Chrome',
+      testDir: demo1CopilotDir,
+      use: {
+        browserName: 'chromium',
+        channel: 'chrome',
+        headless: false,
+      },
+    },
   ],
 });

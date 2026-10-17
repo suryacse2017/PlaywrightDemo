@@ -1,5 +1,5 @@
 // Generated from: tests\Demo1\features\login.feature
-import { test } from "../../../../tests/Demo1/fixtures/testFixture.ts";
+import { test } from "../../../../../tests/Demo1/fixtures/testFixture.ts";
 
 test.describe('Login functionality', () => {
 
