@@ -19,6 +19,8 @@ const demo1CopilotDir = defineBddConfig({
   outputDir: '.features-gen/demo1copilot',
 });
 
+const isCI = process.env.CI === 'true';
+
 export default defineConfig({
   testDir: demo1Dir,
  //eConsultDir,
@@ -64,8 +66,8 @@ export default defineConfig({
       testDir: demo1CopilotDir,
       use: {
         browserName: 'chromium',
-        channel: 'chrome',
-        headless: false,
+        channel: isCI ? undefined : 'chrome',
+        headless: isCI,
       },
     },
   ],
