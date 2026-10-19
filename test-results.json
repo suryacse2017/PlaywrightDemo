@@ -1,7 +1,7 @@
 {
   "config": {
     "configFile": "C:\\SPECIAL2\\OH\\PlaywrightProject\\PlaywrightDemo\\playwright.config.ts",
-    "rootDir": "C:/SPECIAL2/OH/PlaywrightProject/PlaywrightDemo",
+    "rootDir": "C:/SPECIAL2/OH/PlaywrightProject/PlaywrightDemo/.features-gen/demo1",
     "forbidOnly": false,
     "fullyParallel": false,
     "globalSetup": null,
@@ -24,7 +24,23 @@
         },
         "id": "Demo1-Chrome",
         "name": "Demo1-Chrome",
-        "testDir": "C:/SPECIAL2/OH/PlaywrightProject/PlaywrightDemo/.features-gen",
+        "testDir": "C:/SPECIAL2/OH/PlaywrightProject/PlaywrightDemo/.features-gen/demo1",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      },
+      {
+        "outputDir": "C:/SPECIAL2/OH/PlaywrightProject/PlaywrightDemo/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "Demo1Copilot-Chrome",
+        "name": "Demo1Copilot-Chrome",
+        "testDir": "C:/SPECIAL2/OH/PlaywrightProject/PlaywrightDemo/.features-gen/demo1copilot",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -54,27 +70,27 @@
     "shard": null,
     "tags": [],
     "updateSnapshots": "missing",
-    "updateSourceMethod": "3way",
+    "updateSourceMethod": "patch",
     "version": "1.59.1",
     "workers": 1,
     "webServer": null
   },
   "suites": [
     {
-      "title": ".features-gen\\tests\\Demo1\\features\\login.feature.spec.js",
-      "file": ".features-gen/tests/Demo1/features/login.feature.spec.js",
+      "title": "..\\demo1copilot\\tests\\Demo1Copilot\\features\\login.feature.spec.js",
+      "file": "../demo1copilot/tests/Demo1Copilot/features/login.feature.spec.js",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Login functionality",
-          "file": ".features-gen/tests/Demo1/features/login.feature.spec.js",
+          "title": "Practice Test Login",
+          "file": "../demo1copilot/tests/Demo1Copilot/features/login.feature.spec.js",
           "line": 4,
           "column": 6,
           "specs": [
             {
-              "title": "TC-1 Successful login with valid credentials",
+              "title": "TC_LOGIN_001: Verify successful login with valid credentials.",
               "ok": true,
               "tags": [],
               "tests": [
@@ -82,37 +98,41 @@
                   "timeout": 120000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "Demo1-Chrome",
-                  "projectName": "Demo1-Chrome",
+                  "projectId": "Demo1Copilot-Chrome",
+                  "projectName": "Demo1Copilot-Chrome",
                   "results": [
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1463,
+                      "duration": 1486,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
                       "steps": [
                         {
-                          "title": "Given I enter a valid username",
-                          "duration": 39
+                          "title": "Given I am on the practice test login page",
+                          "duration": 741
                         },
                         {
-                          "title": "When I enter a valid password",
-                          "duration": 10
+                          "title": "When I log in with username \"student\" and password \"Password123\"",
+                          "duration": 449
                         },
                         {
-                          "title": "And I click the Login button",
-                          "duration": 508
+                          "title": "Then the URL should contain \"/logged-in-successfully/\"",
+                          "duration": 2
                         },
                         {
-                          "title": "Then I should see the Dashboard",
-                          "duration": 14
+                          "title": "And I should see the \"Logged In Successfully\" heading or message",
+                          "duration": 25
+                        },
+                        {
+                          "title": "And the \"Log out\" button should be visible",
+                          "duration": 6
                         }
                       ],
-                      "startTime": "2026-10-02T01:08:49.736Z",
+                      "startTime": "2026-10-19T21:16:08.559Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -120,61 +140,9 @@
                   "status": "expected"
                 }
               ],
-              "id": "5be17d6ceb63cf5c79de-29643e201a5ab364c516",
-              "file": ".features-gen/tests/Demo1/features/login.feature.spec.js",
-              "line": 10,
-              "column": 7
-            },
-            {
-              "title": "TC-2 Login with invalid credentials",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 120000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "Demo1-Chrome",
-                  "projectName": "Demo1-Chrome",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 897,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "steps": [
-                        {
-                          "title": "Given I enter an invalid username",
-                          "duration": 30
-                        },
-                        {
-                          "title": "When I enter an invalid password",
-                          "duration": 7
-                        },
-                        {
-                          "title": "And I click the Login button",
-                          "duration": 46
-                        },
-                        {
-                          "title": "Then I should see an invalid credentials message",
-                          "duration": 4
-                        }
-                      ],
-                      "startTime": "2026-10-02T01:08:51.634Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "5be17d6ceb63cf5c79de-d7e98c85aa50001f2017",
-              "file": ".features-gen/tests/Demo1/features/login.feature.spec.js",
-              "line": 17,
+              "id": "64fc28f5bb7a74e9fdec-20d743023a1ec44dc704",
+              "file": "../demo1copilot/tests/Demo1Copilot/features/login.feature.spec.js",
+              "line": 6,
               "column": 7
             }
           ]
@@ -184,9 +152,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-02T01:08:47.490Z",
-    "duration": 5299.796999999991,
-    "expected": 2,
+    "startTime": "2026-10-19T21:16:07.400Z",
+    "duration": 3134.654,
+    "expected": 1,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

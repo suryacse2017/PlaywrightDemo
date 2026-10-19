@@ -25,3 +25,4 @@ Feature: Login functionality
     And I click the Login button
 
     Then I should see an invalid credentials message
+    

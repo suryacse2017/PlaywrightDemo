@@ -32,6 +32,26 @@ To name report files, import and use the `setReport` function as the **first lin
 
 Name any file {filename}.tests.ts to use the login script, name other files {filename}.spec.ts to run without the login script
 
+## Playwright BDD
+
+Run the Demo1Copilot scenarios with:
+
+```
+npm run test:demo1copilot
+```
+
+To run both Demo1 and Demo1Copilot scenarios, use:
+
+```
+npm run test:both
+```
+
+Both suites use `playwright-bdd` with the Playwright Test runner. Generated tests are kept in separate subfolders under `.features-gen`. Locally, both suites use installed Google Chrome and run headed; Demo1Copilot uses Playwright's bundled Chromium and runs headless in GitHub Actions. To generate both suites without running them, use `npm run bddgen:both`.
+
+To discover and run individual scenarios in VS Code's Testing view, install the recommended **Playwright Test for VS Code** extension. Run `npm run bddgen:both` after changing either suite's feature or step definitions, then refresh test discovery.
+
+The `Demo1Copilot Playwright Tests` GitHub Actions workflow runs the Demo1Copilot suite on pushes to `Surya1`, pull requests targeting `main`, or when started manually. It installs the bundled Chromium browser and publishes the HTML report and test results as a workflow artifact.
+
 # Dependencies
 
 Make sure you install all dependencies.
@@ -40,8 +60,8 @@ Make sure you install all dependencies.
 npm install
 ```
 
-Install necessary browsers
+Install Google Chrome to run the suites locally. GitHub Actions installs Playwright's Chromium automatically. To use Playwright's bundled Chromium locally instead, run:
 
 ```
-npx playwright install 
+npx playwright install chromium
 ```
