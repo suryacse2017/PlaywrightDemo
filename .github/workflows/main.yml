@@ -1,4 +1,3 @@
-
 name: Demo1Copilot Playwright Tests
 
 on:
@@ -8,11 +7,9 @@ on:
   pull_request:
     branches: [main]
 
-  # Run every Monday at 6:00 PM EDT (10:00 PM UTC)
   schedule:
     - cron: '0 22 * * 1'
 
-  # Allow manual execution from GitHub Actions
   workflow_dispatch:
 
 permissions:
@@ -61,3 +58,30 @@ jobs:
             test-results/
           if-no-files-found: ignore
           retention-days: 30
+
+      - name: Send email notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "Demo1Copilot Playwright Tests - ${{ job.status }}"
+          to: ${{ secrets.NOTIFY_EMAIL }}
+          from: GitHub Actions <${{ secrets.SMTP_USERNAME }}>
+          body: |
+            Hello,
+
+            The GitHub Actions workflow "Demo1Copilot Playwright Tests" finished with status: ${{ job.status }}.
+
+            Workflow: ${{ github.workflow }}
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Thanks,
+            GitHub Actions
+          attachments: |
+            playwright-report/**
