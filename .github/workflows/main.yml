@@ -2,7 +2,7 @@ name: Demo1Copilot Playwright Tests
 
 on:
   push:
-    branches: [Surya1]
+    branches: [main]
 
   pull_request:
     branches: [main]
