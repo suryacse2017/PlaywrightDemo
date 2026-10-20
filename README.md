@@ -50,7 +50,19 @@ Both suites use `playwright-bdd` with the Playwright Test runner. Generated test
 
 To discover and run individual scenarios in VS Code's Testing view, install the recommended **Playwright Test for VS Code** extension. Run `npm run bddgen:both` after changing either suite's feature or step definitions, then refresh test discovery.
 
-The `Demo1Copilot Playwright Tests` GitHub Actions workflow runs the Demo1Copilot suite on pushes to `Surya1`, pull requests targeting `main`, or when started manually. It installs the bundled Chromium browser and publishes the HTML report and test results as a workflow artifact.
+The Demo1Copilot GitHub Actions workflow publishes the HTML report as a workflow artifact and emails an inline test summary with the full interactive Playwright report attached as a ZIP.
+
+To enable report emails, add these repository Actions secrets under **Settings > Secrets and variables > Actions**:
+
+| Secret | Value |
+| --- | --- |
+| `SMTP_SERVER` | Your SMTP server (for Gmail, `smtp.gmail.com`) |
+| `SMTP_PORT` | SMTP port (for Gmail SSL, `465`) |
+| `SMTP_USERNAME` | Email account used to send the notification |
+| `SMTP_PASSWORD` | SMTP password or, for Gmail, an app password |
+| `NOTIFY_EMAIL` | Recipient email address |
+
+Do not put email passwords or app passwords in the workflow file or other tracked files.
 
 # Dependencies
 

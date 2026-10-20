@@ -27,6 +27,7 @@ jobs:
 
     env:
       CI: 'true'
+      EMAIL_CONFIGURED: ${{ secrets.SMTP_SERVER != '' && secrets.SMTP_PORT != '' && secrets.SMTP_USERNAME != '' && secrets.SMTP_PASSWORD != '' && secrets.NOTIFY_EMAIL != '' }}
 
     steps:
       - name: Checkout repository
@@ -47,6 +48,28 @@ jobs:
       - name: Run Demo1Copilot tests
         run: npm run test:demo1copilot
 
+      - name: Prepare email report and archive
+        if: always()
+        run: |
+          node scripts/email-report.cjs
+          if [ -d playwright-report ]; then
+            zip -qr playwright-report.zip playwright-report
+          else
+            mkdir -p email-attachments
+            cp email-report.html email-attachments/
+            printf '%s\n' 'The interactive Playwright report was not generated. See the workflow run for details.' > email-attachments/report-unavailable.txt
+            zip -qr playwright-report.zip email-attachments
+          fi
+          if [ -f test-results.json ]; then
+            zip -q playwright-report.zip test-results.json
+          fi
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          WORKFLOW_STATUS: ${{ job.status }}
+          REPORT_TITLE: Demo1Copilot Test Report
+
       - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v4
@@ -59,8 +82,17 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
 
+<<<<<<< HEAD
       - name: Send email notification
         if: always()
+=======
+      - name: Warn if email secrets are missing
+        if: always() && env.EMAIL_CONFIGURED != 'true'
+        run: echo "::warning::Email report was not sent. Configure SMTP_SERVER, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD, and NOTIFY_EMAIL in repository Actions secrets."
+
+      - name: Send email notification
+        if: always() && env.EMAIL_CONFIGURED == 'true'
+>>>>>>> origin/main
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.SMTP_SERVER }}
@@ -70,6 +102,7 @@ jobs:
           subject: "Demo1Copilot Playwright Tests - ${{ job.status }}"
           to: ${{ secrets.NOTIFY_EMAIL }}
           from: GitHub Actions <${{ secrets.SMTP_USERNAME }}>
+<<<<<<< HEAD
           body: |
             Hello,
 
@@ -85,3 +118,11 @@ jobs:
             GitHub Actions
           attachments: |
             playwright-report/**
+=======
+          html_body: file://email-report.html
+          body: |
+            Demo1Copilot Playwright tests finished with status: ${{ job.status }}.
+            The full interactive HTML report is attached as a ZIP. Extract it and open playwright-report/index.html.
+            Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          attachments: playwright-report.zip
+>>>>>>> origin/main
